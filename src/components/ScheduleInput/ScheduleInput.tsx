@@ -21,7 +21,7 @@ Location: Westfield Courts, 123 Tennis Ave`;
 
   const handleVideoClick = () => {
     // Open video in a new window (not fullscreen) so users remember to return
-    window.open('/copying usta schedule.mp4', '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+    window.open('/full demo - usta scheduler.mp4', '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
   };
 
   return (
