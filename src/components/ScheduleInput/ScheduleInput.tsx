@@ -20,8 +20,8 @@ Opponent: Springfield Tennis Club
 Location: Westfield Courts, 123 Tennis Ave`;
 
   const handleVideoClick = () => {
-    // Open video in a new tab/window or show in modal
-    window.open('/copying usta schedule.mp4', '_blank');
+    // Open video in a new window (not fullscreen) so users remember to return
+    window.open('/copying usta schedule.mp4', '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
   };
 
   return (
@@ -32,7 +32,7 @@ Location: Westfield Courts, 123 Tennis Ave`;
       
       <div className="flex gap-4">
         {/* Text Input Area */}
-        <div className="flex-1">
+        <div className="w-4/5">
           <textarea
             id="schedule-input"
             value={value}
@@ -54,7 +54,7 @@ Location: Westfield Courts, 123 Tennis Ave`;
         </div>
 
         {/* Video Tutorial - Small and to the right */}
-        <div className="flex-shrink-0">
+        <div className="w-1/5 flex justify-center">
           <button
             onClick={handleVideoClick}
             className="flex flex-col items-center text-blue-600 hover:text-blue-700 transition-colors group"
@@ -62,7 +62,7 @@ Location: Westfield Courts, 123 Tennis Ave`;
           >
             <div className="relative mb-2">
               {/* Small Video Thumbnail */}
-              <div className="w-24 h-16 rounded-lg overflow-hidden shadow-sm group-hover:shadow-md transition-shadow">
+              <div className="w-12 h-8 rounded-lg overflow-hidden shadow-sm group-hover:shadow-md transition-shadow">
                 <img 
                   src="/thumbnail_video.png" 
                   alt="Video tutorial thumbnail"
@@ -71,8 +71,8 @@ Location: Westfield Courts, 123 Tennis Ave`;
               </div>
               {/* Play button overlay */}
               <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-all">
-                <div className="w-5 h-5 bg-white bg-opacity-90 rounded-full flex items-center justify-center shadow-lg">
-                  <svg className="w-2.5 h-2.5 text-blue-600 ml-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <div className="w-3 h-3 bg-white bg-opacity-90 rounded-full flex items-center justify-center shadow-lg">
+                  <svg className="w-1.5 h-1.5 text-blue-600 ml-0.5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
                   </svg>
                 </div>
