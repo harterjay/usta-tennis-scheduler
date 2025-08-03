@@ -40,15 +40,17 @@ Location: Westfield Courts, 123 Tennis Ave`;
           >
             <div className="relative">
               {/* Video Thumbnail */}
-              <div className="w-20 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
-                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
-                </svg>
+              <div className="w-20 h-12 rounded-lg overflow-hidden shadow-sm group-hover:shadow-md transition-shadow">
+                <img 
+                  src="/thumbnail_video.png" 
+                  alt="Video tutorial thumbnail"
+                  className="w-full h-full object-cover"
+                />
               </div>
               {/* Play button overlay */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-90 group-hover:opacity-100 transition-opacity">
-                <div className="w-4 h-4 bg-white rounded-full flex items-center justify-center">
-                  <svg className="w-2 h-2 text-blue-600 ml-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-all">
+                <div className="w-6 h-6 bg-white bg-opacity-90 rounded-full flex items-center justify-center shadow-lg">
+                  <svg className="w-3 h-3 text-blue-600 ml-0.5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
                   </svg>
                 </div>
@@ -97,10 +99,17 @@ Location: Westfield Courts, 123 Tennis Ave`;
               type="button"
             >
               <div className="flex items-center space-x-3">
-                <div className="w-12 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded flex items-center justify-center flex-shrink-0">
-                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
-                  </svg>
+                <div className="relative w-12 h-8 rounded overflow-hidden flex-shrink-0">
+                  <img 
+                    src="/thumbnail_video.png" 
+                    alt="Video tutorial thumbnail"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-20">
+                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                    </svg>
+                  </div>
                 </div>
                 <div className="text-left">
                   <div className="text-sm font-medium text-blue-900 group-hover:text-blue-700">

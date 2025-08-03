@@ -12,7 +12,9 @@
       "Bash(mkdir:*)",
       "Bash(npm run build:*)",
       "Bash(npx tsc:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(git push:*)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }
