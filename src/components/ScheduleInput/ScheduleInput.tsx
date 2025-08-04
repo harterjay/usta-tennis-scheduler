@@ -28,7 +28,16 @@ Location: Westfield Courts, 123 Tennis Ave`;
     <div className="w-full">
       <div className="text-center mb-6">
         <h3 className="text-xl font-bold text-primary-900 mb-2">📋 USTA Schedule Text</h3>
-        <p className="text-primary-600">Click in the box below and paste your schedule data</p>
+        <div className="text-primary-600 text-left max-w-2xl mx-auto">
+          <ol className="list-decimal list-inside space-y-1 text-sm">
+            <li>Go to tennislink.usta.com and login</li>
+            <li>Select the appropriate team you are registered for</li>
+            <li>Click the Match Schedule tab</li>
+            <li>Highlight the data in the table including the header (starting with 'Match ID' and ending with the last row / last column)</li>
+            <li>Copy</li>
+            <li>Paste in the text box below</li>
+          </ol>
+        </div>
       </div>
       
       <div className="flex gap-6">

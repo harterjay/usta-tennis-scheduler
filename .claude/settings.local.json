@@ -16,7 +16,11 @@
       "Bash(git push:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "WebFetch(domain:riptonic.com)",
+      "Bash(cp:*)",
+      "Bash(rm:*)",
+      "Bash(git rm:*)"
     ],
     "deny": []
   }
