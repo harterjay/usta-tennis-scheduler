@@ -35,43 +35,83 @@ export default function DownloadButton({ matches, isValid, disabled = false }: D
 
   return (
     <div className="w-full">
+      <div className="text-center mb-8">
+        <h3 className="text-2xl font-bold text-slate-900 mb-2">Ready to Download</h3>
+      </div>
+      
       <button
         onClick={handleDownload}
         disabled={isDisabled}
-        className={`w-full py-3 px-6 rounded-lg font-medium transition-colors ${
+        className={`w-full py-6 px-8 rounded-2xl font-bold text-lg transition-all duration-500 relative overflow-hidden group shadow-xl ${
           isDisabled
-            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            : 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
+            ? 'bg-slate-200/80 backdrop-blur-sm text-slate-400 cursor-not-allowed border border-slate-300/50'
+            : 'bg-gradient-to-r from-indigo-600/95 to-indigo-700/95 backdrop-blur-sm text-white hover:shadow-2xl hover:shadow-indigo-500/30 hover:scale-[1.02] focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 border border-indigo-500/30'
         }`}
       >
-        {isGenerating ? (
-          <span className="flex items-center justify-center">
-            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            Generating Calendar...
-          </span>
-        ) : (
-          `Download Calendar File (${matches.length} match${matches.length !== 1 ? 'es' : ''})`
-        )}
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-indigo-600 opacity-50"></div>
+        <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+        <div className="relative z-10">
+          {isGenerating ? (
+            <span className="flex items-center justify-center gap-4">
+              <div className="relative">
+                <div className="w-7 h-7 border-3 border-white/30 rounded-full"></div>
+                <div className="absolute inset-0 w-7 h-7 border-3 border-white border-t-transparent rounded-full animate-spin shadow-lg"></div>
+              </div>
+              <span className="text-lg">Generating Calendar...</span>
+            </span>
+          ) : (
+            <div className="flex items-center justify-center gap-3">
+              <span className="text-2xl">🗓️</span>
+              <span>Generate Calendar File ({matches.length} match{matches.length !== 1 ? 'es' : ''})</span>
+            </div>
+          )}
+        </div>
       </button>
       
       {lastDownload && (
-        <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
-          <p className="text-green-800 text-sm">
-            ✅ Calendar file downloaded successfully at {lastDownload.toLocaleTimeString()}
-          </p>
-          <p className="text-green-700 text-xs mt-1">
-            Import the .ics file into Google Calendar by opening Google Calendar → Settings → Import & Export → Import
-          </p>
+        <div className="mt-8 p-6 bg-emerald-50/80 backdrop-blur-sm border border-emerald-200/50 rounded-2xl shadow-xl">
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 bg-emerald-500/90 backdrop-blur-sm rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <div className="flex-1">
+              <p className="text-emerald-900 font-bold text-lg mb-2">
+                Calendar file downloaded successfully!
+              </p>
+              <p className="text-emerald-700 text-sm mb-4 bg-white/50 backdrop-blur-sm px-3 py-1 rounded-full inline-block">
+                Downloaded at {lastDownload.toLocaleTimeString()}
+              </p>
+              <div className="bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-emerald-200/30">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-6 h-6 bg-emerald-500/90 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                    <span className="text-white text-sm">📅</span>
+                  </div>
+                  <p className="text-emerald-900 font-bold text-sm">Next Steps:</p>
+                </div>
+                <div className="text-emerald-800 text-sm space-y-1 pl-8">
+                  <p>1. Open Google Calendar</p>
+                  <p>2. Go to Settings → Import & Export</p>
+                  <p>3. Click "Import" and select your downloaded .ics file</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       )}
       
       {!isValid && matches.length > 0 && (
-        <p className="mt-2 text-red-600 text-sm">
-          Please fix the validation errors above before downloading.
-        </p>
+        <div className="mt-6 p-4 bg-red-50/80 backdrop-blur-sm border border-red-200/50 rounded-xl shadow-lg">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-red-500/90 backdrop-blur-sm rounded-full flex items-center justify-center">
+              <span className="text-white text-sm">⚠️</span>
+            </div>
+            <p className="text-red-900 font-medium">
+              Please fix the validation errors above before downloading.
+            </p>
+          </div>
+        </div>
       )}
     </div>
   );
