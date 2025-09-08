@@ -16,7 +16,7 @@ Match ID    Schedule Date    Schedule Time    Home Team    Captain/Phone    Visi
 Alternative legacy format also supported:
 Date: Saturday, March 15, 2025
 Time: 10:00 AM
-Opponent: Springfield Tennis Club
+Away Team: Springfield Tennis Club
 Location: Westfield Courts, 123 Tennis Ave`;
 
   const handleVideoClick = () => {

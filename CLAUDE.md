@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-USTA Tennis Schedule Importer is a web application that converts USTA team match schedules into Google Calendar-compatible format (.ics files). The MVP focuses on manual text input and calendar file export - no direct API integration with USTA or Google Calendar.
+USTA Tennis Schedule Importer is a web application that converts USTA team match schedules into Google Calendar-compatible format (.ics files). The application uses image upload and AI-powered analysis to extract schedule data from screenshots - no text input required and no direct API integration with USTA or Google Calendar.
 
 ## Architecture
 
@@ -18,12 +18,13 @@ USTA Tennis Schedule Importer is a web application that converts USTA team match
 ### Backend
 - **Architecture**: Serverless functions (Vercel Functions or AWS Lambda)
 - **Runtime**: Node.js with TypeScript
-- **Data Processing**: Client-side JavaScript for text parsing
+- **Data Processing**: Claude AI API for image analysis and schedule extraction
 - **File Generation**: iCalendar (.ics) format generation
 
 ### Core Components
-- **Text Parser**: Extracts match data from pasted USTA schedule text
-- **Data Validator**: Validates and sanitizes parsed schedule data
+- **Image Upload**: Drag-and-drop interface for schedule screenshots
+- **AI Image Analyzer**: Claude AI integration for extracting match data from images
+- **Data Validator**: Validates and sanitizes extracted schedule data
 - **iCalendar Generator**: Creates RFC 5545 compliant .ics files
 - **Download Handler**: Manages file generation and download
 
@@ -43,34 +44,35 @@ npm run dev
 ```
 src/
 ├── components/          # React components
-│   ├── ScheduleInput/   # Text input interface  
-│   ├── DataPreview/     # Parsed data preview
+│   ├── ImageUpload/     # Image upload interface  
+│   ├── DataPreview/     # Extracted data preview
 │   └── DownloadButton/  # Calendar file download
 ├── utils/
-│   ├── parser.ts        # USTA schedule text parsing
+│   ├── imageProcessor.ts # Claude AI image analysis
 │   ├── validator.ts     # Data validation logic
 │   └── icalGenerator.ts # iCalendar file generation
 ├── types/
 │   └── schedule.ts      # TypeScript interfaces
-└── styles/              # CSS/styling files
+├── styles/              # CSS/styling files
+└── api/
+    └── analyze-schedule.ts # Serverless function for Claude AI integration
 ```
 
 ## Data Processing Flow
 
-1. **Input**: User pastes USTA schedule text
-2. **Parse**: Extract date, time, opponent, location, match type
+1. **Input**: User uploads screenshot of USTA schedule table
+2. **Analyze**: Claude AI extracts match data from image (dates, times, teams, captains, facilities)
 3. **Validate**: Check data completeness and format
 4. **Generate**: Create iCalendar (.ics) file
 5. **Download**: Provide file for Google Calendar import
 
 ### Expected Input Format
-```
-Date: Saturday, March 15, 2025
-Time: 10:00 AM
-Opponent: Springfield Tennis Club
-Location: Westfield Courts, 123 Tennis Ave
-Match Type: Men's 4.0 Doubles
-```
+Users simply take a screenshot of their USTA schedule table from tennislink.usta.com, including:
+- Match ID column
+- Schedule Date and Time columns  
+- Home Team and Visiting Team columns
+- Captain/Phone columns
+- Facility/Match Site column
 
 ## Development Commands
 

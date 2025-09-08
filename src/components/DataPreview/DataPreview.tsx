@@ -94,8 +94,8 @@ export default function DataPreview({ matches, validation, parseErrors }: DataPr
               <thead className="bg-gradient-to-r from-slate-800/95 to-slate-700/95 backdrop-blur-sm text-white">
                 <tr>
                   <th className="px-6 py-4 text-left text-sm font-bold">Date & Time</th>
-                  <th className="px-6 py-4 text-left text-sm font-bold">Your Team</th>
-                  <th className="px-6 py-4 text-left text-sm font-bold">Opponent</th>
+                  <th className="px-6 py-4 text-left text-sm font-bold">Home Team</th>
+                  <th className="px-6 py-4 text-left text-sm font-bold">Away Team</th>
                   <th className="px-6 py-4 text-left text-sm font-bold">Captain</th>
                   <th className="px-6 py-4 text-left text-sm font-bold">Facility</th>
                   <th className="px-6 py-4 text-center text-sm font-bold">Match ID</th>
@@ -110,21 +110,26 @@ export default function DataPreview({ matches, validation, parseErrors }: DataPr
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
-                        <span className="text-lg">{match.isHomeMatch ? '🏠' : '✈️'}</span>
+                        <span className="text-lg">🏠</span>
                         <div>
                           <div className="font-semibold text-primary-900">
-                            {match.isHomeMatch ? match.homeTeam : match.visitingTeam}
+                            {match.homeTeam}
                           </div>
                           <div className="text-xs text-emerald-600 font-medium">
-                            {match.isHomeMatch ? 'Home' : 'Visiting'}
+                            Home
                           </div>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="font-semibold text-primary-900">{match.opponent}</div>
-                      <div className="text-xs text-blue-600 font-medium">
-                        {match.isHomeMatch ? 'Visiting' : 'Home'}
+                      <div className="flex items-center gap-2">
+                        <span className="text-lg">✈️</span>
+                        <div>
+                          <div className="font-semibold text-primary-900">{match.visitingTeam}</div>
+                          <div className="text-xs text-blue-600 font-medium">
+                            Away
+                          </div>
+                        </div>
                       </div>
                     </td>
                     <td className="px-6 py-4">

@@ -1,23 +1,39 @@
 import { useState, useMemo } from 'react';
-import ScheduleInput from './components/ScheduleInput/ScheduleInput';
+import ImageUpload from './components/ImageUpload/ImageUpload';
 import DataPreview from './components/DataPreview/DataPreview';
 import DownloadButton from './components/DownloadButton/DownloadButton';
-import { parseScheduleText } from './utils/parser';
+import { analyzeScheduleImage } from './utils/imageProcessor';
 import { validateScheduleData } from './utils/validator';
+import type { MatchData } from './types/schedule';
 
 function App() {
-  const [scheduleText, setScheduleText] = useState('');
-
-  const parsedData = useMemo(() => {
-    if (!scheduleText.trim()) {
-      return { matches: [], errors: [] };
-    }
-    return parseScheduleText(scheduleText);
-  }, [scheduleText]);
+  const [matches, setMatches] = useState<MatchData[]>([]);
+  const [errors, setErrors] = useState<string[]>([]);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   const validation = useMemo(() => {
-    return validateScheduleData(parsedData.matches);
-  }, [parsedData.matches]);
+    return validateScheduleData(matches);
+  }, [matches]);
+
+  const handleImageSelect = () => {
+    // Clear previous results when new image is selected
+    setMatches([]);
+    setErrors([]);
+  };
+
+  const handleImageAnalyze = async (file: File) => {
+    setIsAnalyzing(true);
+    try {
+      const result = await analyzeScheduleImage(file);
+      setMatches(result.matches);
+      setErrors(result.errors);
+    } catch (error) {
+      setErrors([`Analysis failed: ${error instanceof Error ? error.message : 'Unknown error'}`]);
+      setMatches([]);
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-professional">
@@ -59,7 +75,7 @@ function App() {
             </h2>
             <p className="text-xl text-primary-600 mb-8 leading-relaxed">
               Convert your USTA team match schedules into Google Calendar-compatible files. 
-              Simply paste your schedule text below and download the .ics file to import into your calendar.
+              Simply upload a screenshot of your schedule and download the .ics file to import into your calendar.
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm text-primary-500">
               <div className="flex items-center gap-2">
@@ -81,30 +97,31 @@ function App() {
         {/* Main Content */}
         <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-2xl border border-white/20 mb-8">
           <div className="space-y-8">
-            {/* Schedule Input Section */}
+            {/* Image Upload Section */}
             <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/30">
-              <ScheduleInput
-                value={scheduleText}
-                onChange={setScheduleText}
+              <ImageUpload
+                onImageSelect={handleImageSelect}
+                onImageAnalyze={handleImageAnalyze}
+                isAnalyzing={isAnalyzing}
               />
             </div>
 
             {/* Data Preview Section */}
-            {(parsedData.matches.length > 0 || parsedData.errors.length > 0) && (
+            {(matches.length > 0 || errors.length > 0) && (
               <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/30">
                 <DataPreview
-                  matches={parsedData.matches}
+                  matches={matches}
                   validation={validation}
-                  parseErrors={parsedData.errors}
+                  parseErrors={errors}
                 />
               </div>
             )}
 
             {/* Download Section */}
-            {parsedData.matches.length > 0 && (
+            {matches.length > 0 && (
               <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/30">
                 <DownloadButton
-                  matches={parsedData.matches}
+                  matches={matches}
                   isValid={validation.isValid}
                 />
               </div>
